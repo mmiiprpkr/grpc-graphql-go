@@ -4,6 +4,7 @@ import (
 	"context"
 	"grpcgqlgo/generated/graph"
 	graphql "grpcgqlgo/graph/resolver"
+	"grpcgqlgo/pkg/protoloader"
 	"log"
 	"net/http"
 	"os"
@@ -37,7 +38,12 @@ func main() {
 		},
 	))
 
-	srv := handler.New(graph.NewExecutableSchema(graph.Config{Resolvers: &graphql.Resolver{}}))
+	client := protoloader.CreateClient()
+
+	srv := handler.New(graph.NewExecutableSchema(graph.Config{Resolvers: &graphql.Resolver{
+		UserServiceClient:    client.UserServiceClient,
+		ProductServiceClient: client.ProductServiceClient,
+	}}))
 
 	srv.AddTransport(transport.Options{})
 	srv.AddTransport(transport.GET{})

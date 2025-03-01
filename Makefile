@@ -1,5 +1,8 @@
-run:
-	go run server.go
+build:
+	go build -o bin/server .
+
+run: build
+	./bin/server
 
 # __________________________ GENERATED SECTION __________________________
 clear-generated:

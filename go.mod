@@ -7,6 +7,8 @@ require (
 	github.com/labstack/echo/v4 v4.13.3
 	github.com/vektah/gqlparser v1.3.1
 	github.com/vektah/gqlparser/v2 v2.5.22
+	google.golang.org/grpc v1.70.0
+	google.golang.org/protobuf v1.36.5
 )
 
 require (
@@ -33,5 +35,6 @@ require (
 	golang.org/x/text v0.22.0 // indirect
 	golang.org/x/time v0.8.0 // indirect
 	golang.org/x/tools v0.30.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20241202173237-19429a94021a // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

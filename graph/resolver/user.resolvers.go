@@ -7,21 +7,39 @@ package resolver
 import (
 	"context"
 	"errors"
+	"fmt"
 	"grpcgqlgo/generated/graph/model"
+	"grpcgqlgo/generated/proto/models"
 )
 
 // Users is the resolver for the users field.
 func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
-	response := []*model.User{
-		{
-			ID:    "1",
-			Name:  "John Doe",
-			Email: "JohnDoe@example.com",
-		},
+	res, err := r.UserServiceClient.FetchUser(ctx, &models.FetchUserRequest{})
+
+	if err != nil {
+		return nil, err
 	}
 
-	if len(response) == 0 {
+	product, err := r.ProductServiceClient.FetchProducts(ctx, &models.FetchProductRequest{})
+
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Println(product)
+
+	if len(res.Users) == 0 {
 		return nil, errors.New("no users found")
 	}
-	return response, nil
+
+	Users := make([]*model.User, 0, len(res.Users))
+	for _, user := range res.Users {
+		Users = append(Users, &model.User{
+			ID:    user.Id,
+			Name:  user.Name,
+			Email: "Peerapat",
+		})
+	}
+
+	return Users, nil
 }

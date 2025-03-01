@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package servers;
+option go_package = "grpcgqlgo/generated/proto/services";
+
+import "models/product.model.proto";
+
+service ProductService {
+  rpc FetchProducts(models.FetchProductRequest) returns (models.FetchProductResponse);
+}
